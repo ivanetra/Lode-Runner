@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1555939105 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\181511013.cpp
+	"header/181511013.h"
+
+1555157744 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\181511013.h
+	"..\game.h"
+
+1555263494 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\game.h
+	<stdio.h>
+	<graphics.h>
+	<conio.h>
+	<stdlib.h>
+	<dos.h>
+	<time.h>
+	<process.h>
+	"variabel.h"
+	"header/mencoba.h"
+	"header/181511005.h"
+	"header/181511013.h"
+	"header/181511015.h"
+	"header/181511019.h"
+	"header/181511049.h"
+
+1555939412 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\variabel.h
+
+1555157746 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\mencoba.h
+	"..\game.h"
+
+1555231876 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\181511005.h
+	"..\game.h"
+
+1555157744 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\181511015.h
+	"..\game.h"
+
+1555157742 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\181511019.h
+	"..\game.h"
+
+1555258338 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\header\181511049.h
+	"..\game.h"
+
+1555157726 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\181511015.cpp
+	"header/181511015.h"
+
+1555264468 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\181511019.cpp
+	"header/181511019.h"
+
+1555939246 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\181511049.cpp
+	"header/181511049.h"
+
+1555939412 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\main.cpp
+	<iostream>
+	"game.h"
+
+1555233329 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v3.0)\181511005.cpp
+	"header/181511005.h"
+

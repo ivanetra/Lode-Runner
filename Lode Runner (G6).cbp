@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Lode Runner (G6)" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="default">
+				<Option output="Lode Runner (G6)" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Linker>
+			<Add library="bgi" />
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="comdlg32" />
+			<Add library="uuid" />
+			<Add library="oleaut32" />
+			<Add library="ole32" />
+		</Linker>
+		<Unit filename="181511005.cpp" />
+		<Unit filename="181511013.cpp" />
+		<Unit filename="181511015.cpp" />
+		<Unit filename="181511019.cpp" />
+		<Unit filename="181511049.cpp" />
+		<Unit filename="game.h" />
+		<Unit filename="header/181511005.h" />
+		<Unit filename="header/181511013.h" />
+		<Unit filename="header/181511015.h" />
+		<Unit filename="header/181511019.h" />
+		<Unit filename="header/181511049.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="variabel.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
