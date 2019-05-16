@@ -82,6 +82,7 @@ int hitung_loote(int A[19][27], int *loot_e)
 	if(isHarta(A[i][j]))
 	{
 		(*loot_e)++;
+		IncrementChestObjectiveNumber(*loot_e);
 	}
 	return *loot_e;
 }
@@ -105,7 +106,7 @@ int hitung_loot(int A[19][27])
 }
 
 void bordernama()
-{	
+{
 	setcolor(WHITE);
 	rectangle (414,264,830,334);
 	setfillstyle(XHATCH_FILL,BLUE);
@@ -123,7 +124,7 @@ void nameinput(int x, int y, char *title, int spacing, char name[10], int font, 
 	for (i=0; i<10; i++) {
 		name[i] = 0;
 	}
-	
+
 	i = 0;
 	while (i<10) {
 		if (i<9) {
@@ -138,7 +139,7 @@ void nameinput(int x, int y, char *title, int spacing, char name[10], int font, 
 				name[i] = getch();
 			} while (!(name[i]==8 || name[i]==13));
 		}
-		
+
 		if (name[i]==8) {
 			name[i] = 0;
 			if (i>0) {
@@ -157,7 +158,7 @@ void nameinput(int x, int y, char *title, int spacing, char name[10], int font, 
 		}
 		outtextxy(x+spacing, y, name);
 	}
-	
+
 }
 
 
@@ -182,21 +183,21 @@ void cetak_leaderboard(){
 		x = i; // karena x ke reset, kembalikan nilai x yang tadi ditampung di i
 		sprintf(print_name, "%s", rekap.nama);
 		sprintf(print_move, "%d", rekap.poin);
-		
+
 		// cek di console
 		//printf("%d %s %d:%02d:%02d %d \n", x, rekap.nama,timer.jam,timer.menit,timer.detik,rekap.poin);
-		
+
 		// tampilkan
 		outtextxy(100,(130+(x*30)), print_rank);
 		outtextxy(250,130+(x*30), print_name);
 		outtextxy(730,130+(x*30), print_move);
-		
+
 		x++;
 		// read baris selanjutnya
 		fread(&rekap,sizeof(rekap),1,f_pemain);
 		//fscanf(f_pemain, "%s %d\n", &rekap.nama,  &rekap.poin);
 	}
-	
+
 	// tutup file
 	fclose(f_pemain);
 }
@@ -213,7 +214,7 @@ void cetak_waktu()
 	{
 		sprintf(print_time, "%d:%02d:%02d", waktu.jam, waktu.menit, waktu.detik);
 		outtextxy(550,130+(x*30), print_time);
-		fread(&waktu,sizeof(waktu),1,f_timer);	
+		fread(&waktu,sizeof(waktu),1,f_timer);
 		x++;
 	}
 	fclose(f_timer);
@@ -221,15 +222,15 @@ void cetak_waktu()
 void hiScoreLayout() {
 	int x, y;
 	bool click=false;
-	
+
 	cleardevice();
 	readimagefile("img\\BG2.bmp",0,0,840,620);
 	rectangle(40, 40, 800, 490);
-	
+
 	setfillstyle(SOLID_FILL, BLACK);
-	
+
 	floodfill(40 + ((800 - 40)/2), 40 + ((490 - 40)/2), WHITE);
-	
+
 	settextjustify(CENTER_TEXT, CENTER_TEXT);
 	settextstyle(COMPLEX_FONT, HORIZ_DIR, 5);
 	outtextxy(maxwidth/2, 40, "LEADERBOARDS");
@@ -275,7 +276,7 @@ void save_data(data player)
 {
 	cleardevice();
 	FILE *f_pemain;
-	
+
 //	strcpy(player.nama,nama);
 //	player.poin=x;
 	// buka file & bikin file
@@ -283,11 +284,11 @@ void save_data(data player)
 		printf("File tidak dapat dibuka!");
 		exit(1);
 	}
-	
+
 	//player.sumWaktu = player.waktu.s + (player.waktu.m * 60) + (player.waktu.H * 3600);
 	fwrite(&player,sizeof(player),1,f_pemain);
 	//fprintf(f_pemain, "%s %d\n ", player.nama, player.poin);
-	
+
 	// tututp file
 	fclose(f_pemain);
 }

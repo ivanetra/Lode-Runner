@@ -17,5 +17,7 @@ bool isHabisDrill(int p);
 bool isGameOver(int A[19][27], int temp, int level, int life);
 void GameOver(data rekap, char name[10], int level);
 bool isTerjebak(int A[19][27], int temp);
+void IncrementChestObjectiveNumber(int nChest);
+void ShowObjective(int level);
 
 #endif
