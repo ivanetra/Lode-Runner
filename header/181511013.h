@@ -8,10 +8,14 @@
 #include "..\game.h"
 
 //FEBRI
-void choose_sprite(int A[19][27], int temp, int lastkey);
-void draw_sprite(int A[19][27], int temp, int lastkey);
-void isi_temp(int A[19][27], int *temp, int lastkey);
-bool isJatuh(int A[19][27], int temp);
-void Jatuh(int A[19][27], int *temp, int *lastkey, int *loot_e);
+
+//Character Movement Image
+void choose_sprite(address h, int temp, int lastkey, int posisi, bool *lastMoveSprite, bool *lastLadderSprite, bool *lastMoveMusic);
+void draw_sprite(address h, int temp, int lastkey, int posisi, bool *lastMoveSprite, bool *lastLadderSprite, bool *lastMoveMusic);
+void isi_temp(address h, int *temp, int lastkey, int posisi);
+
+//Jatuh
+bool isJatuh(address h, int temp);
+void Jatuh(address h, int *temp, int *lastkey, int *loot_e);
 
 #endif

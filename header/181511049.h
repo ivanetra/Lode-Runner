@@ -7,17 +7,31 @@
 #define H_049
 #include "..\game.h"
 
-//IVAN
-void init_array(int A[19][27], int level);
-void game(int A[19][27]);
+//IVAN EKA PUTRA
+
+/*void init_array(int A[19][27], int level);*/
+
+//Gameplay
+void game();
+
+//Drill
 void Drill(void * arg);
 bool isMauDrill(int key);
-void GetDrill(int A[19][27], int key, int *lastkey);
+void GetDrill(address h, int key, int *lastkey, int posisi, bool *lastMoveSprite, bool *lastLadderSprite, bool *lastMoveMusic);
 bool isHabisDrill(int p);
-bool isGameOver(int A[19][27], int temp, int level, int life);
-void GameOver(data rekap, char name[10], int level);
-bool isTerjebak(int A[19][27], int temp);
+
+//Game
+bool isGameCompleted(int complete);
+bool isGameOver(address h, int temp, int level, int life, int complete);
+void GameOver(data rekap, char name[10], int level, int complete);
+bool isTerjebak(address h, int temp);
+
+//Objective
+bool isObjectiveClear(int level, int loot_e);
 void IncrementChestObjectiveNumber(int nChest);
 void ShowObjective(int level);
+
+// Audio
+void PlayMusic(char musicName);
 
 #endif

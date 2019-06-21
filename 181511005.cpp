@@ -5,81 +5,124 @@
 
 #include "header/181511005.h"
 
-void KeyboardInput(int *key){
-    if ((*key != 72) && (*key != 75) && (*key != 77) && (*key != 80) && (*key!=65) && (*key!=83) && (*key != 97) && (*key != 115)){
-        *key = NULL;
-    }
-}
-
-void GetMove(int A[19][27], int key, int *temp, int *lastkey, int *loot_e){
-	int tempbfr;
-	switch(key){
-		case KEY_UP : {
-				*lastkey=1;
-				tempbfr=*temp;
-				isi_temp(A, temp, *lastkey);
-				if ((isTangga(*temp) || isTangga(tempbfr)) && !isTembok(A[i-1][j]) && !isBeton(A[i-1][j])){
-					i--;
-				} else {
-					i=i;
-				}
-			break;
-		}
-		case KEY_DOWN : {
-				*lastkey=2;
-				isi_temp(A, temp, *lastkey);
-				if (isTangga(A[i+1][j]) || isBlank(A[i+1][j]) || isTali(A[i+1][j]) || isHarta(A[i+1][j]) || isLubang(A[i+1][j])){
-					i++;
-				} else {
-					i=i;
-				}
-			break;
-		}
-		case KEY_RIGHT : {
-				*lastkey=3;
-				isi_temp(A, temp, *lastkey);
-				if ((!isTembok(A[i][j+1]) && !isBeton(A[i][j+1])) && (isTembok(A[i+1][j]) || isTangga(A[i+1][j]) || isTali(A[i][j+1]) || isTali(A[i][j-1])) && j<26){
-					j++;
-				} else {
-					j=j;
-				}
-			break;
-		}
-		case KEY_LEFT : {
-				*lastkey=4;
-				isi_temp(A, temp, *lastkey);
-				if ((!isTembok(A[i][j-1]) && !isBeton(A[i][j-1])) && (isTembok(A[i+1][j]) || isTangga(A[i+1][j]) || isTali(A[i][j+1]) || isTali(A[i][j-1])) && j>0){
-					j--;
-				} else {
-					j=j;
-				}
-			break;
-		}
-		case NULL :{
-				*lastkey=0;
-			break;
-		}
+void moveUP(address h, int *temp, int *lastkey, int tempbfr, int posisi){
+	draw_object(h, i, j);
+    *lastkey=1;
+	tempbfr=*temp;
+	isi_temp(h, temp, *lastkey, posisi);
+	if ((isTangga(*temp) || isTangga(tempbfr)) && !isTembok(h->map[i-1][j]) && !isBeton(h->map[i-1][j])){
+		i--;
+	} else {
+		i=i;
 	}
-	sprintf(msg2,"Temp  : %d",*temp);
-	outtextxy(20,640,msg2);
 }
 
-int hitung_skor(int A[19][27], int *temp)
+void moveDOWN(address h, int *temp, int *lastkey, int posisi){
+	draw_object(h, i, j);
+    *lastkey=2;
+	isi_temp(h, temp, *lastkey, posisi);
+	if (isTangga(h->map[i+1][j]) || isBlank(h->map[i+1][j]) || isTali(h->map[i+1][j]) || isHarta(h->map[i+1][j]) || isLubang(h->map[i+1][j])){
+		i++;
+	} else {
+		i=i;
+	}
+}
+
+void moveRIGHT(address h, int *temp, int *lastkey, int *posisi){
+	draw_object(h, i, j);
+    *lastkey=3;
+    if (*posisi==5){
+    	isi_temp(h, temp, *lastkey, *posisi);
+	}
+	if ((!isTembok(h->map[i][j+1]) && !isBeton(h->map[i][j+1])) && (isBeton(h->map[i+1][j]) || isTembok(h->map[i+1][j]) || isTangga(h->map[i+1][j]) || isTali(h->map[i][j+1]) || isTali(h->map[i][j-1])) && j<26){
+		(*posisi)++;
+		if (*posisi>5){
+			*posisi=1;
+			j++;
+		}
+	} else {
+		*posisi=*posisi;
+	}
+}
+
+void moveLEFT(address h, int *temp, int *lastkey, int *posisi){
+	draw_object(h, i, j);
+    *lastkey=4;
+	if (*posisi==1){
+    	isi_temp(h, temp, *lastkey, *posisi);
+	}
+	if ((!isTembok(h->map[i][j-1]) && !isBeton(h->map[i][j-1])) && (isBeton(h->map[i+1][j]) || isTembok(h->map[i+1][j]) || isTangga(h->map[i+1][j]) || isTali(h->map[i][j+1]) || isTali(h->map[i][j-1])) && j>0){
+		(*posisi)--;
+		if (*posisi<1){
+			*posisi=5;
+			j--;
+		}
+	} else {
+		j=j;
+	}
+}
+
+void KeyboardInput(address h, int *temp, int *lastkey, int *posisi, bool *lastMoveSprite, bool *lastLadderSprite, bool *lastMoveMusic){
+	int tempbfr;
+
+    //KEY INPUT BERGERAK KE ATAS
+    if (GetAsyncKeyState(VK_UP)){
+    	delay(40);
+    	moveUP(h, temp, lastkey, tempbfr, *posisi);
+	}
+	//KEY INPUT BERGERAK KE BAWAH
+	if (GetAsyncKeyState(VK_DOWN)){
+		delay(40);
+		moveDOWN(h, temp, lastkey, *posisi);
+
+	}
+	//KEY INPUT BERGERAK KE KANAN
+	if (GetAsyncKeyState(VK_RIGHT)){
+		delay(40);
+		moveRIGHT(h, temp, lastkey, posisi);
+
+	}
+	//KEY INPUT BERGERAK KE KIRI
+	if (GetAsyncKeyState(VK_LEFT)){
+		delay(40);
+		moveLEFT(h, temp, lastkey, posisi);
+
+	}
+	//KEY INPUT DRILL KANAN
+	if (GetAsyncKeyState(0x41)){
+		int key=65;
+    	GetDrill(h, key, lastkey, *posisi, &(*lastMoveSprite), &(*lastLadderSprite), &(*lastMoveMusic));
+	}
+	//KEY INPUT DRILL KIRI
+	if (GetAsyncKeyState(0x53)){
+    	int key=83;
+    	GetDrill(h, key, lastkey, *posisi, &(*lastMoveSprite), &(*lastLadderSprite), &(*lastMoveMusic));
+	}
+
+	/*if (){
+		idle();
+	}*/
+	sprintf(msg,"Temp  : %d",*temp);
+	outtextxy(20,640,msg);
+}
+
+
+int hitung_skor(address h, int *temp)
 {
-	if(isHarta(A[i][j]))
+	if(isHarta(h->map[i][j]))
 	{
+	    PlayMusic(SCORE);
 		*temp=0;
 		skor+=100;
 	}
-	char msg[120];
 	sprintf(msg,"Score : %d",skor);
 	outtextxy(20,620,msg);
 	return skor;
 }
 
-int hitung_loote(int A[19][27], int *loot_e)
+int hitung_loote(address h, int *loot_e)
 {
-	if(isHarta(A[i][j]))
+	if(isHarta(h->map[i][j]))
 	{
 		(*loot_e)++;
 		IncrementChestObjectiveNumber(*loot_e);
@@ -87,7 +130,7 @@ int hitung_loote(int A[19][27], int *loot_e)
 	return *loot_e;
 }
 
-int hitung_loot(int A[19][27])
+int hitung_loot(address h)
 {
 	int loot = 0;
 	int brs,klm;
@@ -95,7 +138,7 @@ int hitung_loot(int A[19][27])
 	{
 		for(klm=0;klm<27;klm++)
 		{
-			if(A[brs][klm]==5)
+			if(h->map[brs][klm]==5)
 			{
 				loot++;
 			}

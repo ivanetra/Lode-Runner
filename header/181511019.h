@@ -7,10 +7,21 @@
 #define H_019
 #include "..\game.h"
 
-//LIA
-int MAP(int level, int baris, int kolom);
-void show_map(int A[19][27]);
-void draw_object(int A[19][27], int brs, int klm);
+//LIA PURNAMASARI
+
+//Linked List
+bool isEmpty (address p);
+void Create_Node (address *p);
+void Ins_Akhir (address *p, address pNew);
+void Isi_Node (address *p , int lvl[19][27]);
+
+//MAP & Posisi Karakter
+void MAP(address *curMAP);
+void show_map(address h);
+void posisi_karakter(int level);
+void draw_object(address h, int brs, int klm);
+
+//Boolean untuk mengetahui objek di sekitar karakter
 bool isBlank(int object);
 bool isTembok(int object);
 bool isTali(int object);
@@ -18,11 +29,15 @@ bool isTangga(int object);
 bool isHarta(int object);
 bool isBeton(int object);
 bool isLubang(int object);
-bool isLevelUp(int loot, int loot_e);
-void LevelUp(int A[19][27], int *level);
-int hitung_nyawa(int A[19][27], int *temp, int *life, int level);
-bool isNyawa_berkurang(int A[19][27], int temp);
-void posisi_karakter(int level);
+
+//Levelling 
+bool isLevelUp(int level, int loot_e);
+void LevelUp(address *h, int *level, int *complete);
+
+//Life
+int hitung_nyawa(address h, int *temp, int *life, int level);
+bool isNyawa_berkurang(address h, int temp);
+
 
 #endif
 

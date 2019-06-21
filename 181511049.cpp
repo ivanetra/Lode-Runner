@@ -5,16 +5,45 @@
 
 #include "header/181511049.h"
 
-int (*B)[27];
+address h;
 int lastkey_;
 
-void init_array(int A[19][27], int level){
+/*void init_array(int A[19][27], int level){
 	int b,k;
 	for(b=0; b<19; b++){
 		for(k=0; k<27; k++){
 			A[b][k]=MAP(level, b, k);
 		}
 	}
+}*/
+
+void PlayMusic(char musicName){
+    switch (musicName){
+        case DRILL:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Drill.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case SCORE:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Chess.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVE1:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move 1.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVE2:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move 2.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVEONLADDER1:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move on Ladder 1.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVEONLADDER2:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move on Ladder 2.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVEONROPE1:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move on Rope 1.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+        case MOVEONROPE2:
+            PlaySound("D:\\Ivan (My Documents)\\Ivan\\Politeknik Negeri Bandung\\2018\\Proyek Perangkat Lunak 2\\Beta (V7.6)\\wav\\Move on Rope 2.wav", NULL, SND_ASYNC | SND_FILENAME);
+            break;
+    }
 }
 
 void Drill(void * arg){
@@ -26,55 +55,67 @@ void Drill(void * arg){
         baris = i + 1;
         kolom = j + 1;
     }
-    B[baris][kolom] = 7;
+    printf("\nDRILL\n");
+    h->map[baris][kolom] = 7;
     readimagefile("gambar//Obj_Blank.jpg", 0+32*kolom, 0+32*baris, 32+32*kolom, 32+32*baris);
     delay(1000);
-    B[baris][kolom] = 1;
+    h->map[baris][kolom] = 1;
     readimagefile("gambar//Obj_Hancur.jpg", 0+32*kolom, 0+32*baris, 32+32*kolom, 32+32*baris);
     delay(1000);
     readimagefile("gambar//Obj_Balok.jpg", 0+32*kolom, 0+32*baris, 32+32*kolom, 32+32*baris);
+    ;
     _endthread();
 }
 
-void GetDrill(int A[19][27], int key, int *lastkey){
-	if((key == 65 || key == 97) && isTembok(A[i + 1][j - 1])){
+void GetDrill(address h, int key, int *lastkey, int posisi, bool *lastMoveSprite, bool *lastLadderSprite, bool *lastMoveMusic){
+	if((key == 65 || key == 97) && isTembok(h->map[i + 1][j - 1])){
             *lastkey = 5; lastkey_=*lastkey;
-            draw_sprite(A, A[i][j], *lastkey);
+            draw_sprite(h, h->map[i][j], *lastkey, posisi, &(*lastMoveSprite), &(*lastLadderSprite), &(*lastMoveMusic));
+            printf("\nGETDRILL\n");
+            PlayMusic(DRILL);
             _beginthread(Drill, 0, NULL);
-	}else if((key == 83 || key == 115) && isTembok(A[i + 1][j + 1])){
+	}else if((key == 83 || key == 115) && isTembok(h->map[i + 1][j + 1])){
             *lastkey = 6; lastkey_=*lastkey;
-            draw_sprite(A, A[i][j], *lastkey);
+            draw_sprite(h, h->map[i][j], *lastkey, posisi, &(*lastMoveSprite), &(*lastLadderSprite), &(*lastMoveMusic));
+        	PlayMusic(DRILL);
         	_beginthread(Drill, 0, NULL);
             }
 }
 
-bool isTerjebak(int A[19][27], int temp){
-	if((isBeton(A[i+1][j]) || isTembok(A[i+1][j])) && (isBeton(A[i][j+1]) || isTembok(A[i][j+1])) && (isBeton(A[i][j-1]) || isTembok(A[i][j-1])) && isLubang(temp)){
+bool isTerjebak(address h, int temp){
+	if((isBeton(h->map[i+1][j]) || isTembok(h->map[i+1][j])) && (isBeton(h->map[i][j+1]) || isTembok(h->map[i][j+1])) && (isBeton(h->map[i][j-1]) || isTembok(h->map[i][j-1])) && isLubang(temp)){
 		return true;
 	} else {
 		return false;
 	}
 }
 
-bool isGameOver(int A[19][27], int temp, int level, int life){
-	if(life == 0 || level>3){
+bool isGameOver(address h, int temp, int level, int life, int complete){
+	if(life == 0 || isGameCompleted(complete)){
 		printf("\nGAMEOVER");
 		gameover = 1;
 		return true;
 	} else {
 		return false;
 	}
-
 }
 
-void GameOver(data rekap, char name[10], int level){
+bool isGameCompleted(int complete){
+	if (complete == 1){
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void GameOver(data rekap, char name[10], int level, int complete){
 		delay(2000);
 		strcpy(rekap.nama,name);
 		rekap.poin=skor;
 		save_data(rekap);
-		if(level>3){
+		if(complete==1){
 			settextjustify(LEFT_TEXT, TOP_TEXT);
-			outtextxy(450,250,"GAME OVER....");
+			outtextxy(450,250,"CONGRATULATIONS");
 			settextjustify(LEFT_TEXT, TOP_TEXT);
 			outtextxy(470,270,"YOU WIN");
 		} else {
@@ -105,21 +146,22 @@ bool isMauDrill(int key){
 	}
 }
 
-void game(int A[19][27]){
+void game(){
+
 	//VARIABEL LOKAL
-	B = A;
-	int temp=0; sprintf(msg2,"Temp  : %d",temp); outtextxy(20,640,msg2);
+	MAP(&h);
+	int complete=0;
+	int temp=0;
 	int key;
 	int lastkey=0;
 	int life=5;
-	char name[10];
-	char msg3[20];
 	data rekap;
 	skor=0;
 	int level=1; //Game dimulai dari Level 1
-
+	int posisi=1;
 
 	//INPUT NAMA
+	char name[10];
 	setbkcolor(BLACK);
 	cleardevice();
 	settextjustify(LEFT_TEXT, TOP_TEXT);
@@ -127,54 +169,106 @@ void game(int A[19][27]){
 	cleardevice();
 
 	//GAMEPLAY
-	_beginthread(waktu,0,NULL);
-	while(!isGameOver(A, temp, level, life)){
+	while(!isGameOver(h, temp, level, life, complete)){
+        bool lastMoveSprite = GERAKKIRI5;
+        bool lastLadderSprite = NAIKTANGGA1;
+        bool lastMoveMusic;
+
 		gameover=0;
-		init_array(A, level);//Menginisialisasi Array A sesuai level yang dimainkan
-		show_map(A);		//Menggambar Peta sesuai isi Array A
+
+		//Menggambar Peta sesuai isi Array yang ditunjuk oleh pointer h
+		show_map(h);
+
+		//Mendefinisikan posisi karakter sesuai level
+		posisi_karakter(level);
+
+		//Menampilkan Objective
 		ShowObjective(level);
-		int loot=hitung_loot(A);//Variabel penyimpan jumlah loot yang tersedia dalam satu level
+
+		int loot=hitung_loot(h);//Variabel penyimpan jumlah loot yang tersedia dalam satu level
 		int loot_e=0;			//Variabel penyimpan jumlah loot yang telah didapat
 
-		while(!isLevelUp(loot, loot_e) && !isGameOver(A, temp, level, life)){
-			sprintf(msg3,"Level  : %d",level); outtextxy(260,620,msg3); //Menampilkan Level yang sedang dimainkan
+		while(!isLevelUp(level, loot_e) && !isGameOver(h, temp, level, life, complete)){
+			sprintf(msg,"Level  : %d",level); outtextxy(260,620,msg); //Menampilkan Level yang sedang dimainkan
+			sprintf(msg,"Temp  : %d",temp); outtextxy(20,640,msg); //Menampilkan kode objek yang sedang ditimpa gambar karakter
 
 			//Melakukan perubahan nilai terhadap SKOR, NYAWA & HARTA yang telah didapat
-			skor = hitung_skor(A, &temp);
-			life=hitung_nyawa(A, &temp, &life, level);
-			loot_e=hitung_loote(A, &loot_e);
+			skor = hitung_skor(h, &temp);
+			life=hitung_nyawa(h, &temp, &life, level);
+			loot_e=hitung_loote(h, &loot_e);
 
 			//Jika tidak habis melakukan Drill, gambar karakter
 			if (!isHabisDrill(lastkey)){
-				draw_sprite(A, temp, lastkey);
+				draw_sprite(h, temp, lastkey, posisi, &lastMoveSprite, &lastLadderSprite, &lastMoveMusic);
 			}
 
-			//Jika kondisi akan jatuh TRUE, masukkan key 80 (DOWN)
-            if(isJatuh(A, temp)){
-            	key = 80;
+			//MOVEMENT & ACTION
+            if(isJatuh(h, temp)){
+            	moveDOWN(h, &temp, &lastkey, posisi);
             	delay(100);
         	}else{
-        			key=(getch()); printf("KEY = %d", key);
-                	KeyboardInput(&key);
+                KeyboardInput(h, &temp, &lastkey, &posisi, &lastMoveSprite, &lastLadderSprite, &lastMoveMusic);
         	}
-
-        	//Jika key yang diinput adalah key melakukan drill, mulai thread drill
-            if(isMauDrill(key)){
-            	printf("\nDRILL");
-            	GetDrill(A, key, &lastkey);
-			} else { //Jika bukan, maka karakter akan bergerak sesuai key
-				draw_object(A, i, j);
-				printf("\nMOVE");
-				GetMove(A, key, &temp, &lastkey, &loot_e);
-			}
 		}
-		if(isLevelUp(loot, loot_e)){
-			LevelUp(A, &level);
+		if(isLevelUp(level, loot_e)){
+				LevelUp(&h, &level, &complete);
 		}
 	}
-	GameOver(rekap, name, level);
+	GameOver(rekap, name, level, complete);
 }
 
+bool isObjectiveClear(int level, int loot_e){
+	switch(level){
+		case 1:{
+			if (loot_e==1){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case 2:{
+			if (loot_e==2){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case 3:{
+			if (loot_e==3){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case 4:{
+			if (loot_e==4){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case 5:{
+			if (loot_e==5){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case 6:{
+			if (loot_e==6){
+				return true;
+			} else {
+				return false;
+			}
+			break;
+		}
+	}
+}
 void ShowObjective(int level){
     // Display objective board image
     readimagefile("gambar//Objective-Board.jpg", 903, 38, 1203, 680);
@@ -184,13 +278,22 @@ void ShowObjective(int level){
     // Display initial state chest objective number
     switch(level){
         case 1:
-            outtextxy(1033, 162, "0/3");
+            outtextxy(1033, 162, "0/1");
             break;
         case 2:
             outtextxy(1033, 162, "0/2");
             break;
         case 3:
-            outtextxy(1033, 162, "0/2");
+            outtextxy(1033, 162, "0/3");
+            break;
+        case 4:
+            outtextxy(1033, 162, "0/4");
+            break;
+        case 5:
+            outtextxy(1033, 162, "0/5");
+            break;
+        case 6:
+            outtextxy(1033, 162, "0/6");
             break;
     }
 }
@@ -207,5 +310,16 @@ void IncrementChestObjectiveNumber(int nChest){
         case 3:
             outtextxy(1033, 162, "3");
             break;
+        case 4:
+            outtextxy(1033, 162, "4");
+            break;
+        case 5:
+            outtextxy(1033, 162, "5");
+            break;
+        case 6:
+            outtextxy(1033, 162, "6");
+            break;
     }
 }
+
+

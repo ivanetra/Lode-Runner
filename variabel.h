@@ -19,7 +19,15 @@ typedef struct{
 	int sumWaktu;
 }data;
 
+typedef struct saya *address;
+typedef struct saya{
+	int map[19][27];
+	//int bot;
+	//int player[18][33];
+	address next;
+} naoncing;
+
 extern int i, j, skor, gameover;
-extern char msg2[120], msg4[120];
+extern char msg[120];
 
 #endif

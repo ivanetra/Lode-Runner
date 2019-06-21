@@ -104,3 +104,56 @@
 1557883506 source:c:\users\ivan eka\.dvdcss\documents\github\lode-runner\main.cpp
 	"game.h"
 
+1561011780 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\181511005.cpp
+	"header/181511005.h"
+
+1561011802 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\header\181511005.h
+	"..\game.h"
+
+1561012195 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\game.h
+	<stdio.h>
+	<graphics.h>
+	<conio.h>
+	<stdlib.h>
+	<dos.h>
+	<time.h>
+	<process.h>
+	<windows.h>
+	<windowsx.h>
+	<mmsystem.h>
+	"variabel.h"
+	"header/181511005.h"
+	"header/181511013.h"
+	"header/181511015.h"
+	"header/181511019.h"
+	"header/181511049.h"
+
+1560524152 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\variabel.h
+
+1561011535 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\header\181511013.h
+	"..\game.h"
+
+1560524170 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\header\181511015.h
+	"..\game.h"
+
+1560524170 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\header\181511019.h
+	"..\game.h"
+
+1561011716 d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\header\181511049.h
+	"..\game.h"
+
+1561013361 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\181511013.cpp
+	"header/181511013.h"
+
+1560524122 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\181511015.cpp
+	"header/181511015.h"
+
+1560524124 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\181511019.cpp
+	"header/181511019.h"
+
+1561013057 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\181511049.cpp
+	"header/181511049.h"
+
+1560524132 source:d:\ivan (my documents)\ivan\politeknik negeri bandung\2018\proyek perangkat lunak 2\beta (v7.6)\main.cpp
+	"game.h"
+

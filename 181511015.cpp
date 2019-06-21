@@ -19,20 +19,19 @@ void main_menu (){
 void klik (){
 	int x=0, y=0;
 	int play = 0;
-	int Array[19][27];
 		while (play == 0)
 	{
 	setbkcolor(BLACK);
 	if(ismouseclick(WM_LBUTTONDOWN)){
 			getmouseclick(WM_LBUTTONDOWN, x, y);
-			printf("%d %d - ", x, y);
+			printf("\nMouse Clicked at [%d] [%d] - ", x, y);
 			if((x >= 804 && x <= 1221) && (y >= 279 && y <= 385)){
 				//GAMEPLAY
 				/*readimagefile("gambar//startdown.jpg",805,280,1220,370);
 				delay(300);*/
 				readimagefile("gambar//startup.jpg",805,280,1220,365);
 				delay(500);
-				game(Array);
+				game();
 				play = 1;
 			}else if((x >= 699 && x <= 749) && (y >= 629 && y <= 679)){
 				//HI-SCORE
